@@ -1,0 +1,37 @@
+# Changing "ils" to "exa"
+alias ls='exa  --color=always --group-directories-first'
+alias ll='exa -alF --icons=auto --color=always --group-directories-first'
+alias la='exa -a --icons=auto --color=always --group-directories-first'
+alias l='exa -F --icons=auto --color=always --group-directories-first'
+alias l.='exa -alF --icons=auto  --color=always --group-directories-first| grep  -E "\."'
+alias tree='exa -aT --icons=auto --color=always'
+#kitty ssh
+alias ssh='kitten ssh'
+#kitten icat
+alias icat='kitten icat'
+#cat to bat
+alias cat='bat'
+
+#vim to nvim 
+alias vim='nvim'
+
+# quality of life
+
+alias mv='mv -i'
+alias cp='cp -i'
+#cd 
+alias c.='cd ..'
+alias .2='../..'
+alias .3='../../..'
+alias .4='../../../..'
+alias .5='../../../../..'
+#tldr to help
+alias help='tldr'
+#factrio
+alias factrio="~/.games/factorio/bin/x64/factorio"
+#less =more
+# alias less='more'
+#git 
+alias gc='git commit' 
+alias gp='git push'
+alias gf='git fetch'

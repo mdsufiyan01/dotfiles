@@ -25,8 +25,9 @@ if [ "$ac" -eq 1 ]; then
         	 dunstify -a "battery full " -r 9994 -h int:value:"$battery_percent" -i "battery" "Battery" "Currently at $battery_percent%" -t 5000
     elif [ "$battery_percent" -gt 90 ]; then
         icon="󰂋"
-    elif [ "$battery_percent" -gt 80 ]; then
+    elif [ "$battery_percent" -eq 80 ]; then
         icon="󰂊"
+        dunstify -a "battery 80 % " -r 9994 -h int:value:"$battery_percent" -i "battery" "Battery" "Currently at $battery_percent%" -t 2000
     elif [ "$battery_percent" -gt 70 ]; then
         icon="󰢞"
     elif [ "$battery_percent" -gt 60 ]; then
@@ -65,8 +66,6 @@ else
         icon="󰁻"
     elif [ "$battery_percent" -gt 10 ]; then
         icon="󰁺"
-    elif [ "$battery_percent" -gt 5 ]; then
-        icon="󰂃"
     else
       icon="󰂃"
         	 dunstify -a "Low battery " -u critical -r 9994 -h int:value:"$battery_percent" -i "battery" "Battery" "Currently at $battery_percent%" -t 5000

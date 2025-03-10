@@ -1,18 +1,22 @@
-#!/usr/bin/env bash
-#killall -q polybar
+#!/bin/bash
 
-# Launch bar1 and bar2
-#polybar  & disown
+killall -q polybar
+while pgrep -u $UID -x polybar >/dev/null; do sleep 0.5; done
 
-# Terminate already running bar instances
-killall polybar
+launch_polybar() {
+  local bar_name="$1"
+  local config_path="$2"
+  polybar "$bar_name" -c "$config_path" & disown
+}
 
-# Wait until the processes have been shut down
-while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
+config_dir="$HOME/.config/polybar"
 
-# Launch polybar
-polybar main -c $(dirname $0)/config.ini &
+hdmi_connected=$(xrandr -q | grep 'HDMI-1 connected' || echo "")
 
-if [[ $(xrandr -q | grep 'HDMI1 connected') ]]; then
-	polybar external -c $(dirname $0)/config.ini &
+launch_polybar laptop "$config_dir/config.ini"
+
+if [[ -n "$hdmi_connected" ]]; then
+  launch_polybar external "$config_dir/config.ini"
+  notify-send "External Monitor Detected" "Polybar launched on both screens."
 fi
+

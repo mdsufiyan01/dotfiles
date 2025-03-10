@@ -5,7 +5,7 @@
 
 send_notification() {
 	volume=$(pamixer --get-volume)
-	dunstify -a "changevolume" -u low -r 9993 -h int:value:"$volume" -i "volume" "Volume" "Currently at ${volume}%" -t 2000
+	dunstify -a "changevolume" -u low -r 9991 -h int:value:"$volume" -i "volume" "Volume" "Currently at ${volume}%" -t 2000
 }
 
 case $1 in

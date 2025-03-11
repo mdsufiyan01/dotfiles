@@ -162,7 +162,7 @@ copy_touchpad_config() {
 
 # Oh My Zsh and plugin installation
 install_oh_my_zsh_plugins() {
-    read -rp "Do you want to install Oh My Zsh? (y/n): " choice
+    read -rp "Do you want to install Oh My Zsh? (Y/n): " choice
     choice=${choice:-y} # Default to 'y' if nothing is entered
 
     case "$choice" in
@@ -189,7 +189,7 @@ install_oh_my_zsh_plugins() {
             echo "Plugins installed. Please manually add them to your .zshrc."
 
             # Prompt to change the default shell to zsh.
-            read -rp "Do you want to change your default shell to zsh? (y/n): " choice_shell
+            read -rp "Do you want to change your default shell to zsh? (Y/n): " choice_shell
             choice_shell=${choice_shell:-y} # Default to y if nothing is entered.
             case "$choice_shell" in
                 [yY]*)
@@ -219,9 +219,10 @@ install_oh_my_zsh_plugins() {
 }
 
 # Main execution
-install_oh_my_zsh_plugins
+
 install_yay
 install_prerequisites
+install_oh_my_zsh_plugins
 create_config_symlinks
 create_zsh_symlinks
 create_home_symlinks

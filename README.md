@@ -60,7 +60,7 @@ This repository contains my personal dotfiles for Arch Linux.
 1.  **Clone the repository:**
 
     ```bash
-    git clone git@github.com:your_username/dotfiles.git ~/.dotfiles
+    git clone https://github.com/mdsufiyan01/dotfiles/tree/main ~/.dotfiles
     ```
 
 2.  **Run the setup script:**

@@ -34,26 +34,7 @@ This repository contains my personal dotfiles for Arch Linux.
 * `setup.sh`: Script to automate setup.
 * `README.md`: This file.
 
-## Prerequisites
 
-* Arch Linux
-* `i3-gaps`
-* `polybar`
-* `dunst`
-* `rofi`
-* `flameshot`
-* `kitty`
-* `neofetch`
-* `neovim`
-* `picom`
-* `zsh`
-* `auto-cpufreq`
-* `xorg-server`
-* `xorg-xinit`
-* `base-devel`
-* `git`
-* GTK themes
-* Yay (AUR helper)
 
 ## Installation
 

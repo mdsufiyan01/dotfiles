@@ -71,7 +71,7 @@ install_yay() {
 install_prerequisites() {
     echo "Installing prerequisite applications..."
 
-    sudo pacman -S --needed \
+    yay -S --needed \
         i3-gaps \
         polybar \
         dunst \
@@ -85,9 +85,6 @@ install_prerequisites() {
         auto-cpufreq \
         gtk2 \
         gtk3 \
-        xfce4 \
-        xfce4-terminal \
-        xfce4-settings \
         xorg-server \
         xorg-xinit \
         ttf-dejavu \
@@ -162,6 +159,62 @@ copy_touchpad_config() {
     fi
 }
 
+# Oh My Zsh and plugin installation
+install_oh_my_zsh_plugins() {
+    read -p "Do you want to install Oh My Zsh? (y/n): " choice
+
+    case "$choice" in
+        [yY]*)
+            echo "Installing Oh My Zsh..."
+            sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
+
+            # Check if the installation was successful (simplistic check)
+            if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
+                echo "Oh My Zsh installation failed."
+                return 1
+            fi
+
+            echo "Oh My Zsh installed successfully!"
+
+            # Install zsh-syntax-highlighting
+            echo "Installing zsh-syntax-highlighting..."
+            git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$HOME/.oh-my-zsh/plugins/zsh-syntax-highlighting"
+
+            # Install zsh-autosuggestions
+            echo "Installing zsh-autosuggestions..."
+            git clone https://github.com/zsh-users/zsh-autosuggestions.git "$HOME/.oh-my-zsh/plugins/zsh-autosuggestions"
+
+            echo "Plugins installed. Please manually add them to your .zshrc."
+
+            # Prompt to change the default shell to zsh.
+            read -p "Do you want to change your default shell to zsh? (y/n): " choice_shell
+            case "$choice_shell" in
+                [yY]*)
+                    chsh -s $(which zsh)
+                    echo "Please log out and log back in or open a new terminal for the changes to take effect."
+                    ;;
+                [nN]*)
+                    echo "You can manually change your shell using 'chsh -s $(which zsh)' later."
+                    ;;
+                *)
+                    echo "Invalid input. Shell not changed."
+                    ;;
+            esac
+
+            echo "Oh My Zsh installation complete!"
+            return 0
+            ;;
+        [nN]*)
+            echo "Oh My Zsh installation cancelled."
+            return 0
+            ;;
+        *)
+            echo "Invalid input."
+            return 1
+            ;;
+    esac
+}
+
 # Main execution
 install_yay
 install_prerequisites
@@ -169,5 +222,6 @@ create_config_symlinks
 create_zsh_symlinks
 create_home_symlinks
 copy_touchpad_config
+install_oh_my_zsh_plugins
 
 echo "Dotfiles setup completed successfully!"

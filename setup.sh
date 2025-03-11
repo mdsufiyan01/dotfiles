@@ -27,6 +27,48 @@ files=(
     "config/xfce4"
 )
 
+# Function to install yay and its prerequisites
+install_yay() {
+    if command -v yay &> /dev/null; then
+        echo "yay is already installed."
+        return
+    fi
+
+    echo "Installing yay and its prerequisites..."
+
+    sudo pacman -S --needed base-devel git
+    git clone https://aur.archlinux.org/yay.git
+    cd yay
+    makepkg -si --noconfirm
+    cd ..
+    rm -rf yay
+
+    echo "yay installed successfully."
+}
+
+# Function to install prerequisite applications
+install_prerequisites() {
+    echo "Installing prerequisite applications..."
+
+    sudo pacman -S --needed \
+        i3-gaps \
+        polybar \
+        dunst \
+        rofi \
+        flameshot \
+        kitty \
+        neofetch \
+        neovim \
+        picom \
+        zsh \
+        auto-cpufreq \
+        xorg-server \
+        xorg-xinit
+
+
+    echo "Prerequisite applications installed."
+}
+
 # Function to create symlinks
 create_symlinks() {
     for file in "${files[@]}"; do
@@ -56,6 +98,8 @@ create_symlinks() {
 }
 
 # Main execution
+install_yay
+install_prerequisites
 create_symlinks
 
 echo "Dotfiles symlinked successfully!"

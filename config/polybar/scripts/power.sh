@@ -27,7 +27,7 @@ if [ "$ac" -eq 1 ]; then
         icon="󰂋"
     elif [ "$battery_percent" -eq 80 ]; then
         icon="󰂊"
-        dunstify -a "battery 80 % " -r 9994 -h int:value:"$battery_percent" -i "battery" "Battery" "Currently at $battery_percent%" -t 2000
+        dunstify -a "battery 80 % " -r 9994 -h int:value:"$battery_percent" -i "battery" "Battery" "Currently at $battery_percent%" -t 1000000
     elif [ "$battery_percent" -gt 70 ]; then
         icon="󰢞"
     elif [ "$battery_percent" -gt 60 ]; then

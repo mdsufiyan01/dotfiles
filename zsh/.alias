@@ -8,7 +8,7 @@ alias tree='exa -aT --icons=auto --color=always'
 #kitty ssh
 #alias ssh='kitten ssh'
 #kitten icat
-alias icat='kitten icat'
+#alias icat='kitten icat'
 #cat to bat
 alias cat='bat'
 

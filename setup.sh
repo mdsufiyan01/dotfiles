@@ -1,75 +1,78 @@
 #!/bin/bash
 
+# ANSI color codes
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+MAGENTA='\033[0;35m'
+CYAN='\033[0;36m'
+WHITE='\033[0;37m'
+NC='\033[0m' # No Color
+
 # Dotfiles Directory
 DOTFILES_DIR="$HOME/.dotfiles"
-CONFIG_DIR="$HOME/.config"
-
-# Array of config files and directories to symlink
-config_files=(
-    "auto-cpufreq"
-    "dunst"
-    "flameshot"
-    "gtk-2.0"
-    "gtk-3.0"
-    "i3"
-    "kitty"
-    "neofetch"
-    "nvim"
-    "picom"
-    "polybar"
-    "rofi"
-    "wallpaper"
-    "xfce4"
-    "user-dirs.dirs"
-)
-
-# Array of zsh files to symlink to home
-zsh_files=(
-    "zsh/.alias"
-    "zsh/.rules"
-    "zsh/.zprofile"
-    "zsh/.zsh_warp_completion"
-    "zsh/.zshrc"
-)
-
-# Array of home directory files to symlink
-home_files=(
-    ".xinitrc"
-    ".fonts"
-    ".icons"
-    ".themes"
-)
-
-# Function to install yay and its prerequisites
-install_yay() {
-    if command -v yay &> /dev/null; then
-        echo "yay is already installed."
-        return
-    fi
-
-    echo "Installing yay and its prerequisites..."
+CONFIG_DIR="<span class="math-inline">HOME/\.config"
+\# Array of config files and directories to symlink
+config\_files\=\(
+"auto\-cpufreq"
+"dunst"
+"flameshot"
+"gtk\-2\.0"
+"gtk\-3\.0"
+"i3"
+"kitty"
+"neofetch"
+"nvim"
+"picom"
+"polybar"
+"rofi"
+"wallpaper"
+"xfce4"
+"user\-dirs\.dirs"
+\)
+\# Array of zsh files to symlink to home
+zsh\_files\=\(
+"zsh/\.alias"
+"zsh/\.rules"
+"zsh/\.zprofile"
+"zsh/\.zsh\_warp\_completion"
+"zsh/\.zshrc"
+\)
+\# Array of home directory files to symlink
+home\_files\=\(
+"\.xinitrc"
+"\.fonts"
+"\.icons"
+"\.themes"
+\)
+\# Function to install yay and its prerequisites
+install\_yay\(\) \{
+if command \-v yay &\> /dev/null; then
+echo "</span>{GREEN}yay is already installed.<span class="math-inline">\{NC\}"
+return
+fi
+echo "</span>{YELLOW}Installing yay and its prerequisites...${NC}"
 
     sudo pacman -S --needed base-devel git
-    if [ $? -ne 0 ]; then
-        echo "Error installing base-devel and git. Exiting."
+    if [ <span class="math-inline">? \-ne 0 \]; then
+echo "</span>{RED}Error installing base-devel and git. Exiting.${NC}"
         exit 1
     fi
     git clone https://aur.archlinux.org/yay.git
     cd yay
     makepkg -si --noconfirm
-    if [ $? -ne 0 ]; then
-        echo "Error installing yay. Exiting."
-        exit 1
-    fi
-    cd ..
-    rm -rf yay
-
-    echo "yay installed successfully."
-}
-
-# Function to install prerequisite applications
-install_prerequisites() {
-    echo "Installing prerequisite applications..."
+    if [ <span class="math-inline">? \-ne 0 \]; then
+echo "</span>{RED}Error installing yay. Exiting.<span class="math-inline">\{NC\}"
+exit 1
+fi
+cd \.\.
+rm \-rf yay
+echo "</span>{GREEN}yay installed successfully.<span class="math-inline">\{NC\}"
+\}
+\# Function to install prerequisite applications
+install\_prerequisites\(\) \{
+echo "</span>{YELLOW}Installing prerequisite applications...${NC}"
 
     yay -S --needed \
         i3-gaps \
@@ -85,36 +88,35 @@ install_prerequisites() {
         auto-cpufreq \
         gtk2 \
         gtk3 \
+        wget \
         xorg-server \
         xorg-xinit \
         ttf-dejavu \
         ttf-font-awesome
-    if [ $? -ne 0 ]; then
-        echo "Error installing prerequisite applications. Exiting."
-        exit 1
-    fi
-
-    echo "Prerequisite applications installed."
-}
-
-# Function to create symlinks for config files
-create_config_symlinks() {
-    for file in "${config_files[@]}"; do
+    if [ <span class="math-inline">? \-ne 0 \]; then
+echo "</span>{RED}Error installing prerequisite applications. Exiting.<span class="math-inline">\{NC\}"
+exit 1
+fi
+echo "</span>{GREEN}Prerequisite applications installed.<span class="math-inline">\{NC\}"
+\}
+\# Function to create symlinks for config files
+create\_config\_symlinks\(\) \{
+for file in "</span>{config_files[@]}"; do
         # Create destination directory if it doesn't exist
-        mkdir -p "$CONFIG_DIR/$(dirname "$file")"
+        mkdir -p "<span class="math-inline">CONFIG\_DIR/</span>(dirname "$file")"
 
         # Check if the destination already exists
         if [ -e "$CONFIG_DIR/$file" ]; then
             # Remove existing file/directory if it's not a symlink
-            if [[ ! -L "$CONFIG_DIR/$file" ]]; then
-                echo "Removing existing file/directory: $CONFIG_DIR/$file"
+            if [[ ! -L "$CONFIG_DIR/<span class="math-inline">file" \]\]; then
+echo "</span>{YELLOW}Removing existing file/directory: $CONFIG_DIR/<span class="math-inline">file</span>{NC}"
                 rm -rf "$CONFIG_DIR/$file"
             fi
         fi
 
         # Create the symlink
-        ln -sf "$DOTFILES_DIR/config/$file" "$CONFIG_DIR/$file"
-        echo "Symlinked: $CONFIG_DIR/$file"
+        ln -sf "$DOTFILES_DIR/config/$file" "$CONFIG_DIR/<span class="math-inline">file"
+echo "</span>{GREEN}Symlinked: $CONFIG_DIR/<span class="math-inline">file</span>{NC}"
     done
 }
 
@@ -122,15 +124,15 @@ create_config_symlinks() {
 create_zsh_symlinks() {
     for file in "${zsh_files[@]}"; do
         # Check if the destination already exists
-        if [ -e "$HOME/$(basename "$file")" ]; then
+        if [ -e "<span class="math-inline">HOME/</span>(basename "$file")" ]; then
             # Remove existing file/directory if it's not a symlink
-            if [[ ! -L "$HOME/$(basename "$file")" ]]; then
-                echo "Removing existing file/directory: $HOME/$(basename "$file")"
-                rm -rf "$HOME/$(basename "$file")"
+            if [[ ! -L "<span class="math-inline">HOME/</span>(basename "<span class="math-inline">file"\)" \]\]; then
+echo "</span>{YELLOW}Removing existing file/directory: <span class="math-inline">HOME/</span>(basename "<span class="math-inline">file"\)</span>{NC}"
+                rm -rf "<span class="math-inline">HOME/</span>(basename "$file")"
             fi
         fi
-        ln -sf "$DOTFILES_DIR/$file" "$HOME/$(basename "$file")"
-        echo "Symlinked: $HOME/$(basename "$file")"
+        ln -sf "$DOTFILES_DIR/$file" "<span class="math-inline">HOME/</span>(basename "<span class="math-inline">file"\)"
+echo "</span>{GREEN}Symlinked: <span class="math-inline">HOME/</span>(basename "<span class="math-inline">file"\)</span>{NC}"
     done
 }
 
@@ -140,13 +142,13 @@ create_home_symlinks() {
         # Check if the destination already exists
         if [ -e "$HOME/$file" ]; then
             # Remove existing file/directory if it's not a symlink
-            if [[ ! -L "$HOME/$file" ]]; then
-                echo "Removing existing file/directory: $HOME/$file"
+            if [[ ! -L "$HOME/<span class="math-inline">file" \]\]; then
+echo "</span>{YELLOW}Removing existing file/directory: $HOME/<span class="math-inline">file</span>{NC}"
                 rm -rf "$HOME/$file"
             fi
         fi
-        ln -sf "$DOTFILES_DIR/$file" "$HOME/$file"
-        echo "Symlinked: $HOME/$file"
+        ln -sf "$DOTFILES_DIR/$file" "$HOME/<span class="math-inline">file"
+echo "</span>{GREEN}Symlinked: $HOME/<span class="math-inline">file</span>{NC}"
     done
 }
 
@@ -154,74 +156,48 @@ create_home_symlinks() {
 copy_touchpad_config() {
     if [ -f "$DOTFILES_DIR/30-touchpad.conf" ]; then
         sudo mkdir -p /etc/X11/xorg.conf.d/
-        sudo cp "$DOTFILES_DIR/30-touchpad.conf" /etc/X11/xorg.conf.d/30-touchpad.conf
-        echo "Copied 30-touchpad.conf to /etc/X11/xorg.conf.d/"
-    fi
-}
+        sudo cp "<span class="math-inline">DOTFILES\_DIR/30\-touchpad\.conf" /etc/X11/xorg\.conf\.d/30\-touchpad\.conf
+echo "</span>{GREEN}Copied 30-touchpad.conf to /etc/X11/xorg.conf.d/<span class="math-inline">\{NC\}"
+fi
+\}
+\# Oh My Zsh and plugin installation
+install\_oh\_my\_zsh\_plugins\(\) \{
+read \-rp "</span>{CYAN}Do you want to install Oh My Zsh? (<span class="math-inline">\{GREEN\}Y</span>{CYAN}/n): <span class="math-inline">\{NC\}" choice
+choice\=</span>{choice:-y} # Default to 'y' if nothing is entered
 
-# Oh My Zsh and plugin installation
-install_oh_my_zsh_plugins() {
-    read -p "Do you want to install Oh My Zsh? (y/n): " choice
-
-    case "$choice" in
-        [yY]*)
-            echo "Installing Oh My Zsh..."
-            sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
+    case "<span class="math-inline">choice" in
+\[yY\]\*\)
+echo "</span>{YELLOW}Installing Oh My Zsh...<span class="math-inline">\{NC\}"
+sh \-c "</span>(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
 
             # Check if the installation was successful (simplistic check)
-            if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
-                echo "Oh My Zsh installation failed."
-                return 1
-            fi
-
-            echo "Oh My Zsh installed successfully!"
-
-            # Install zsh-syntax-highlighting
-            echo "Installing zsh-syntax-highlighting..."
-            git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$HOME/.oh-my-zsh/plugins/zsh-syntax-highlighting"
-
-            # Install zsh-autosuggestions
-            echo "Installing zsh-autosuggestions..."
-            git clone https://github.com/zsh-users/zsh-autosuggestions.git "$HOME/.oh-my-zsh/plugins/zsh-autosuggestions"
-
-            echo "Plugins installed. Please manually add them to your .zshrc."
-
-            # Prompt to change the default shell to zsh.
-            read -p "Do you want to change your default shell to zsh? (y/n): " choice_shell
+            if [[ ! -d "<span class="math-inline">HOME/\.oh\-my\-zsh" \]\]; then
+echo "</span>{RED}Oh My Zsh installation failed.<span class="math-inline">\{NC\}"
+return 1
+fi
+echo "</span>{GREEN}Oh My Zsh installed successfully!<span class="math-inline">\{NC\}"
+\# Install zsh\-syntax\-highlighting
+echo "</span>{YELLOW}Installing zsh-syntax-highlighting...${NC}"
+            git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "<span class="math-inline">HOME/\.oh\-my\-zsh/plugins/zsh\-syntax\-highlighting"
+\# Install zsh\-autosuggestions
+echo "</span>{YELLOW}Installing zsh-autosuggestions...${NC}"
+            git clone https://github.com/zsh-users/zsh-autosuggestions.git "<span class="math-inline">HOME/\.oh\-my\-zsh/plugins/zsh\-autosuggestions"
+echo "</span>{GREEN}Plugins installed. Please manually add them to your .zshrc.<span class="math-inline">\{NC\}"
+\# Prompt to change the default shell to zsh\.
+read \-rp "</span>{CYAN}Do you want to change your default shell to zsh? (<span class="math-inline">\{GREEN\}Y</span>{CYAN}/n): <span class="math-inline">\{NC\}" choice\_shell
+choice\_shell\=</span>{choice_shell:-y} # Default to y if nothing is entered.
             case "$choice_shell" in
                 [yY]*)
-                    chsh -s $(which zsh)
-                    echo "Please log out and log back in or open a new terminal for the changes to take effect."
-                    ;;
-                [nN]*)
-                    echo "You can manually change your shell using 'chsh -s $(which zsh)' later."
+                    chsh -s <span class="math-inline">\(which zsh\)
+echo "</span>{GREEN}Please log out and log back in or open a new terminal for the changes to take effect.<span class="math-inline">\{NC\}"
+;;
+\[nN\]\*\)
+echo "</span>{YELLOW}You can manually change your shell using 'chsh -s <span class="math-inline">\(which zsh\)' later\.</span>{NC}"
                     ;;
                 *)
-                    echo "Invalid input. Shell not changed."
+                    echo "<span class="math-inline">\{RED\}Invalid input\. Shell not changed\.</span>{NC}"
                     ;;
             esac
 
-            echo "Oh My Zsh installation complete!"
+            echo "<span class="math-inline">\{GREEN\}Oh My Zsh installation complete\!</span>{NC}"
             return 0
-            ;;
-        [nN]*)
-            echo "Oh My Zsh installation cancelled."
-            return 0
-            ;;
-        *)
-            echo "Invalid input."
-            return 1
-            ;;
-    esac
-}
-
-# Main execution
-install_yay
-install_prerequisites
-create_config_symlinks
-create_zsh_symlinks
-create_home_symlinks
-copy_touchpad_config
-install_oh_my_zsh_plugins
-
-echo "Dotfiles setup completed successfully!"

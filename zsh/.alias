@@ -5,10 +5,13 @@ alias la='exa -a --icons=auto --color=always --group-directories-first'
 alias l='exa -F --icons=auto --color=always --group-directories-first'
 alias l.='exa -alF --icons=auto  --color=always --group-directories-first| grep  -E "\."'
 alias tree='exa -aT --icons=auto --color=always'
+
 #kitty ssh
 #alias ssh='kitten ssh'
+
 #kitten icat
 #alias icat='kitten icat'
+
 #cat to bat
 alias cat='bat'
 
@@ -20,16 +23,20 @@ alias md='mkdir -p'
 alias rd='rmdir'
 alias mv='mv -i'
 alias cp='cp -i'
+
 #cd 
 alias c.='cd ..'
 alias .2='../..'
 alias .3='../../..'
 alias .4='../../../..'
 alias .5='../../../../..'
+
 #tldr to help
 alias help='tldr'
+
 #less =more
 # alias less='more'
+
 #git 
 alias gc='git commit' 
 alias gp='git push'

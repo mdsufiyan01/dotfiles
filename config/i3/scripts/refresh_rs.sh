@@ -3,7 +3,7 @@
 DISPLAY=":0" # Adjust if needed
 
 # Get the connected output
-OUTPUT=$(xrandr | grep " connected" | awk '{print $1}')
+OUTPUT=$(xrandr | grep "eDP-1 connected" | awk '{print $1}')
 
 if [ -z "$OUTPUT" ]; then
     dunstify -r 9977 "Refresh Rate" "Error: No connected displays found."

@@ -11,7 +11,7 @@ launch_polybar() {
 
 config_dir="$HOME/.config/polybar"
 
-hdmi_connected=$(xrandr -q | grep 'HDMI-1 connected' || echo "")
+hdmi_connected=$(xrandr -q | grep 'HDMI-1-0 connected' || echo "")
 
 launch_polybar laptop "$config_dir/config.ini"
 
@@ -19,4 +19,3 @@ if [[ -n "$hdmi_connected" ]]; then
   launch_polybar external "$config_dir/config.ini"
   notify-send "External Monitor Detected" "Polybar launched on both screens."
 fi
-

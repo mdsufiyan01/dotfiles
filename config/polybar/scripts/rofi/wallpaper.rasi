@@ -1,0 +1,48 @@
+* {
+    background-color: rgba(0, 0, 0, 0.7); 
+    text-color: #ffffff;
+    border-radius: 15px;
+}
+
+window {
+    width: 91%;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.7); 
+    location: center;
+}
+
+/* Removes the search bar */
+inputbar {
+    enabled: false;
+}
+
+listview {
+    layout: horizontal;
+    columns: 6;
+    spacing: 15px;
+    cycle: true;
+    fixed-columns: true;
+    background-color: transparent;
+}
+
+element {
+    orientation: vertical;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: transparent;
+}
+
+/* Removes the filename text */
+element-text {
+    enabled: false;
+}
+
+element-icon {
+    size: 10em;
+    border-radius: 8px;
+    background-color: transparent;
+}
+
+element selected {
+    background-color: rgba(255, 255, 255, 0.2); 
+}

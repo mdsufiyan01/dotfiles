@@ -28,7 +28,7 @@ case $chosen in
 			i3lock-fancy
         ;;
     $suspend)
-			systemctl suspend	
+			i3lock-fancy && systemctl suspend	
         ;;
     $logout)
 			i3-msg exit
